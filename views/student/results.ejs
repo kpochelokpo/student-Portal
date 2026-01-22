@@ -1,0 +1,68 @@
+<%- include('../partials/head', { title: 'Results Viewer' }) %>
+<%- include('../partials/nav') %>
+<section class="page">
+  <div class="page-header">
+    <h2>Results Viewer</h2>
+    <p>View published results for your academic year and term.</p>
+  </div>
+
+  <form class="filter-form" method="get" action="/student/results">
+    <div>
+      <label for="academic_year">Academic Year</label>
+      <select name="academic_year" id="academic_year">
+        <% academicYears.forEach((year) => { %>
+          <option value="<%= year.id %>" <%= String(year.id) === String(selectedYear) ? 'selected' : '' %>><%= year.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div>
+      <label for="term">Term</label>
+      <select name="term" id="term">
+        <% terms.forEach((termItem) => { %>
+          <option value="<%= termItem.id %>" <%= String(termItem.id) === String(selectedTerm) ? 'selected' : '' %>><%= termItem.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div>
+      <label for="class">Class/Form</label>
+      <input id="class" name="class" type="text" value="<%= student.class_name %>" readonly>
+    </div>
+    <button class="btn btn-primary" type="submit">Filter</button>
+  </form>
+
+  <div class="card">
+    <% if (term) { %>
+      <p class="term-ended">This Term Ended: <%= term.end_date %></p>
+    <% } %>
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Class Score</th>
+          <th>Exam Score</th>
+          <th>Total Score</th>
+          <th>Grade</th>
+          <th>Remarks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (results.length === 0) { %>
+          <tr>
+            <td colspan="6" class="empty-state">No published results available for this term.</td>
+          </tr>
+        <% } %>
+        <% results.forEach((row) => { %>
+          <tr>
+            <td><%= row.subject %></td>
+            <td><%= row.class_score %></td>
+            <td><%= row.exam_score %></td>
+            <td><%= row.total_score %></td>
+            <td><%= row.grade %></td>
+            <td><%= row.remark %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+<%- include('../partials/footer') %>

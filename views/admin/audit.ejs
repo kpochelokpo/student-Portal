@@ -1,0 +1,32 @@
+<%- include('../partials/head', { title: 'Audit Log' }) %>
+<%- include('../partials/nav') %>
+<section class="page">
+  <div class="page-header">
+    <h2>Audit Log</h2>
+    <p>Track administrative actions across the portal.</p>
+  </div>
+
+  <div class="card">
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Actor</th>
+          <th>Action</th>
+          <th>Entity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% logs.forEach((log) => { %>
+          <tr>
+            <td><%= log.created_at %></td>
+            <td><%= log.actor || 'System' %></td>
+            <td><%= log.action %></td>
+            <td><%= log.entity_type %> (#<%= log.entity_id %>)</td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+<%- include('../partials/footer') %>

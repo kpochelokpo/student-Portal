@@ -1,0 +1,7 @@
+<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="150" cy="150" r="140" fill="#F6F8FC" stroke="#1E66D0" stroke-width="12"/>
+  <circle cx="150" cy="150" r="115" stroke="#F5C400" stroke-width="10"/>
+  <path d="M150 60L100 110H200L150 60Z" fill="#F5C400" stroke="#181818" stroke-width="2"/>
+  <rect x="110" y="110" width="80" height="120" fill="#1E66D0" stroke="#181818" stroke-width="2"/>
+  <text x="150" y="250" text-anchor="middle" fill="#181818" font-size="18" font-family="Montserrat">HASSH</text>
+</svg>

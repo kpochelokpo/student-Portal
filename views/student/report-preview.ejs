@@ -1,0 +1,36 @@
+<%- include('../partials/head', { title: 'Report Card' }) %>
+<%- include('../partials/nav') %>
+<section class="page">
+  <div class="page-header">
+    <h2>Report Card</h2>
+    <p>Download your official report card PDF for published terms.</p>
+  </div>
+
+  <div class="card">
+    <div class="report-header">
+      <img src="/images/school-crest.svg" alt="School Crest" class="report-logo">
+      <div>
+        <h3>HALF ASSINI SENIOR HIGH SCHOOL</h3>
+        <p class="report-title">ACADEMIC RESULTS / REPORT CARD</p>
+      </div>
+      <a class="btn btn-secondary" href="/reports/student/report-card">Download PDF</a>
+    </div>
+
+    <div class="report-info">
+      <p><strong>Name:</strong> <%= student.surname %> <%= student.firstname %> <%= student.othernames || '' %></p>
+      <p><strong>Index No:</strong> <%= student.index_no %></p>
+      <p><strong>Class:</strong> <%= student.class_name %></p>
+      <p><strong>Programme:</strong> <%= student.programme %></p>
+    </div>
+
+    <div class="report-terms">
+      <% terms.forEach((term) => { %>
+        <div class="term-block">
+          <h4><%= term.academic_year %> - <%= term.name %></h4>
+          <p>This Term Ended: <%= term.end_date %></p>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

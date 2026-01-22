@@ -1,0 +1,77 @@
+<%- include('../partials/head', { title: 'Results Management' }) %>
+<%- include('../partials/nav') %>
+<section class="page">
+  <div class="page-header">
+    <h2>Results Management</h2>
+    <p>Enter results manually or upload via CSV.</p>
+  </div>
+
+  <% if (error) { %>
+    <div class="alert"><%= error %></div>
+  <% } %>
+
+  <div class="card form-card">
+    <h3>Manual Entry</h3>
+    <form method="post" action="/admin/results" class="form-grid">
+      <select name="student_id" required>
+        <option value="">Select student</option>
+        <% students.forEach((student) => { %>
+          <option value="<%= student.id %>"><%= student.index_no %> - <%= student.surname %> <%= student.firstname %></option>
+        <% }) %>
+      </select>
+      <select name="term_id" required>
+        <option value="">Select term</option>
+        <% terms.forEach((term) => { %>
+          <option value="<%= term.id %>"><%= term.name %></option>
+        <% }) %>
+      </select>
+      <select name="subject_id" required>
+        <option value="">Select subject</option>
+        <% subjects.forEach((subject) => { %>
+          <option value="<%= subject.id %>"><%= subject.name %></option>
+        <% }) %>
+      </select>
+      <input name="class_score" type="number" min="0" max="50" placeholder="Class Score" required>
+      <input name="exam_score" type="number" min="0" max="50" placeholder="Exam Score" required>
+      <button class="btn btn-primary" type="submit">Save Result</button>
+    </form>
+  </div>
+
+  <div class="card form-card">
+    <h3>Bulk Upload (CSV)</h3>
+    <p class="form-hint">CSV headers: index_no, term_id, subject_id, class_score, exam_score</p>
+    <form method="post" action="/admin/results/upload" enctype="multipart/form-data" class="form-row">
+      <input type="file" name="csv_file" accept=".csv" required>
+      <button class="btn btn-secondary" type="submit">Upload CSV</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3>Recent Entries</h3>
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Term</th>
+          <th>Subject</th>
+          <th>Total</th>
+          <th>Grade</th>
+          <th>Remark</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% results.forEach((row) => { %>
+          <tr>
+            <td><%= row.index_no %></td>
+            <td><%= row.term %></td>
+            <td><%= row.subject %></td>
+            <td><%= row.total_score %></td>
+            <td><%= row.grade %></td>
+            <td><%= row.remark %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+<%- include('../partials/footer') %>

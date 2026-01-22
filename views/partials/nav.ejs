@@ -1,0 +1,27 @@
+<nav class="main-nav">
+  <div class="nav-left">
+    <img src="/images/school-crest.svg" alt="HALF ASSINI SENIOR HIGH SCHOOL Crest" class="nav-logo">
+    <div>
+      <p class="nav-school">HALF ASSINI SENIOR HIGH SCHOOL</p>
+      <span class="nav-subtitle">Student Results Portal</span>
+    </div>
+  </div>
+  <div class="nav-links">
+    <% if (currentUser?.role === 'student') { %>
+      <a href="/student/dashboard">Dashboard</a>
+      <a href="/student/results">Results</a>
+      <a href="/student/report-card">Report Card</a>
+    <% } %>
+    <% if (currentUser?.role === 'admin') { %>
+      <a href="/admin/dashboard">Admin Dashboard</a>
+      <a href="/admin/students">Students</a>
+      <a href="/admin/results">Results</a>
+      <a href="/admin/terms">Terms</a>
+    <% } %>
+    <% if (currentUser) { %>
+      <form action="/logout" method="post" class="inline-form">
+        <button type="submit" class="btn btn-outline">Logout</button>
+      </form>
+    <% } %>
+  </div>
+</nav>
