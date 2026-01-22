@@ -1,0 +1,38 @@
+<%- include('../partials/head', { title: 'Admin Dashboard' }) %>
+<%- include('../partials/nav') %>
+<section class="page">
+  <div class="page-header">
+    <h2>Admin Dashboard</h2>
+    <p>Manage students, subjects, terms, and results.</p>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="card stat-card">
+      <h3>Total Students</h3>
+      <p><%= stats.students.count %></p>
+    </div>
+    <div class="card stat-card">
+      <h3>Total Subjects</h3>
+      <p><%= stats.subjects.count %></p>
+    </div>
+    <div class="card stat-card">
+      <h3>Academic Terms</h3>
+      <p><%= stats.terms.count %></p>
+    </div>
+    <div class="card stat-card">
+      <h3>Results Records</h3>
+      <p><%= stats.results.count %></p>
+    </div>
+  </div>
+
+  <div class="card quick-links">
+    <h3>Quick Actions</h3>
+    <div class="button-row">
+      <a class="btn btn-primary" href="/admin/students">Manage Students</a>
+      <a class="btn btn-secondary" href="/admin/results">Enter Results</a>
+      <a class="btn btn-outline" href="/admin/terms">Publish Terms</a>
+      <a class="btn btn-outline" href="/admin/audit">View Audit Log</a>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

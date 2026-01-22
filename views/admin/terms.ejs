@@ -1,0 +1,55 @@
+<%- include('../partials/head', { title: 'Manage Terms' }) %>
+<%- include('../partials/nav') %>
+<section class="page">
+  <div class="page-header">
+    <h2>Manage Terms</h2>
+    <p>Publish or unpublish terms to control student access.</p>
+  </div>
+
+  <div class="card form-card">
+    <form method="post" action="/admin/terms" class="form-grid">
+      <select name="academic_year_id" required>
+        <option value="">Select academic year</option>
+        <% years.forEach((year) => { %>
+          <option value="<%= year.id %>"><%= year.name %></option>
+        <% }) %>
+      </select>
+      <input name="name" type="text" placeholder="Term 1" required>
+      <input name="start_date" type="date">
+      <input name="end_date" type="date">
+      <button class="btn btn-primary" type="submit">Add Term</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>Academic Year</th>
+          <th>Term</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% terms.forEach((term) => { %>
+          <tr>
+            <td><%= term.academic_year %></td>
+            <td><%= term.name %></td>
+            <td><%= term.start_date || 'N/A' %></td>
+            <td><%= term.end_date || 'N/A' %></td>
+            <td><span class="badge <%= term.is_published ? 'badge-success' : 'badge-warning' %>"><%= term.is_published ? 'Published' : 'Unpublished' %></span></td>
+            <td>
+              <form class="inline-form" method="post" action="/admin/terms/<%= term.id %>/toggle">
+                <button class="btn btn-secondary" type="submit"><%= term.is_published ? 'Unpublish' : 'Publish' %></button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+<%- include('../partials/footer') %>

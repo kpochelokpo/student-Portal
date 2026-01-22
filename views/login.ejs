@@ -1,0 +1,33 @@
+<%- include('partials/head', { title: 'Login' }) %>
+<div class="login-page">
+  <div class="login-card">
+    <img src="/images/school-crest.svg" alt="School Crest" class="login-logo">
+    <h1>HALF ASSINI SENIOR HIGH SCHOOL</h1>
+    <p class="login-subtitle">Student Results Portal</p>
+
+    <% if (error) { %>
+      <div class="alert"><%= error %></div>
+    <% } %>
+
+    <div class="login-forms">
+      <form class="login-form" method="post" action="/login/student">
+        <h2>Student Login</h2>
+        <label for="indexNo">Index Number</label>
+        <input type="text" id="indexNo" name="indexNo" placeholder="HASSH/001" required>
+        <label for="pin">PIN</label>
+        <input type="password" id="pin" name="pin" placeholder="****" required>
+        <button class="btn btn-primary" type="submit">Login as Student</button>
+      </form>
+
+      <form class="login-form" method="post" action="/login/admin">
+        <h2>Admin Login</h2>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="admin" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="********" required>
+        <button class="btn btn-primary" type="submit">Login as Admin</button>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer') %>

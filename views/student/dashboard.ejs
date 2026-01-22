@@ -1,0 +1,44 @@
+<%- include('../partials/head', { title: 'Student Dashboard' }) %>
+<%- include('../partials/nav') %>
+<section class="page">
+  <div class="page-header">
+    <h2>Student Dashboard</h2>
+    <p>Welcome back, <%= student.surname %> <%= student.firstname %>.</p>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="card profile-card">
+      <img src="<%= student.photo_url %>" alt="Student Photo" class="profile-photo">
+      <div>
+        <h3><%= student.surname %> <%= student.firstname %></h3>
+        <p>Other Names: <%= student.othernames || 'N/A' %></p>
+        <p>Index Number: <%= student.index_no %></p>
+        <p>Date of Birth: <%= student.dob || 'N/A' %></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Academic Overview</h3>
+      <p>Programme / Class: <%= student.programme %> - <%= student.class_name %></p>
+      <p>Level: <%= student.class_name && student.class_name.includes('SHS 1') ? 'SHS 1' : student.class_name && student.class_name.includes('SHS 2') ? 'SHS 2' : 'SHS 3' %></p>
+      <p>Status: <%= student.status %></p>
+    </div>
+
+    <div class="card quick-stats">
+      <h3>Quick Stats</h3>
+      <p>Overall Average (%): <strong><%= overallAverage %></strong></p>
+      <p>Conduct / Class: Excellent</p>
+    </div>
+  </div>
+
+  <div class="card actions-card">
+    <h3>Actions</h3>
+    <div class="button-row">
+      <a class="btn btn-primary" href="/student/results">View Results</a>
+      <a class="btn btn-secondary" href="/reports/student/report-card">Download Report Card (PDF)</a>
+      <a class="btn btn-outline" href="/docs/student-handbook.pdf" download>Download Student Handbook</a>
+      <a class="btn btn-outline" href="/docs/clearance-form.pdf" download>Download Clearance Form</a>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

@@ -1,0 +1,70 @@
+<%- include('../partials/head', { title: 'Manage Students' }) %>
+<%- include('../partials/nav') %>
+<section class="page">
+  <div class="page-header">
+    <h2>Manage Students</h2>
+    <p>Add, update, or reset student PINs.</p>
+  </div>
+
+  <% if (error) { %>
+    <div class="alert"><%= error %></div>
+  <% } %>
+
+  <div class="card form-card">
+    <h3>Add Student</h3>
+    <form method="post" action="/admin/students" class="form-grid">
+      <input name="index_no" type="text" placeholder="Index No" required>
+      <input name="surname" type="text" placeholder="Surname" required>
+      <input name="firstname" type="text" placeholder="First name" required>
+      <input name="othernames" type="text" placeholder="Other names">
+      <input name="dob" type="date" placeholder="Date of Birth">
+      <input name="photo_url" type="text" placeholder="Photo URL (e.g., /images/student-1.jpg)">
+      <input name="class_name" type="text" placeholder="Class (e.g., SHS 1A)">
+      <input name="programme" type="text" placeholder="Programme">
+      <input name="status" type="text" placeholder="Status">
+      <input name="date_admitted" type="date" placeholder="Date Admitted">
+      <input name="expected_graduation" type="date" placeholder="Expected Graduation">
+      <input name="scholarship" type="text" placeholder="Scholarship">
+      <input name="comments" type="text" placeholder="Comments">
+      <input name="pin" type="password" placeholder="Initial PIN" required>
+      <button class="btn btn-primary" type="submit">Create Student</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3>Current Students</h3>
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>Index No</th>
+          <th>Name</th>
+          <th>Class</th>
+          <th>Programme</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% students.forEach((student) => { %>
+          <tr>
+            <td><%= student.index_no %></td>
+            <td><%= student.surname %> <%= student.firstname %></td>
+            <td><%= student.class_name %></td>
+            <td><%= student.programme %></td>
+            <td><%= student.status %></td>
+            <td>
+              <form class="inline-form" method="post" action="/admin/students/<%= student.id %>/reset-pin">
+                <input type="password" name="new_pin" placeholder="New PIN" required>
+                <button class="btn btn-outline" type="submit">Reset PIN</button>
+              </form>
+              <form class="inline-form" method="post" action="/admin/students/<%= student.id %>/delete">
+                <button class="btn btn-danger" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+<%- include('../partials/footer') %>
