@@ -1,0 +1,73 @@
+<%- include('../partials/header', { title: 'Results Viewer', extraStyles: null }) %>
+<section class="page-header">
+  <h2>Results Viewer</h2>
+  <p>Review your published results for each term and academic year.</p>
+</section>
+
+<div class="card">
+  <form method="GET" action="/student/results" class="grid grid-3">
+    <div class="form-group">
+      <label for="year">Academic Year</label>
+      <select name="year" id="year">
+        <% academicYears.forEach((year) => { %>
+          <option value="<%= year.id %>" <%= String(selectedYear) === String(year.id) ? 'selected' : '' %>><%= year.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="term">Term</label>
+      <select name="term" id="term">
+        <option value="">All Published Terms</option>
+        <% terms.forEach((term) => { %>
+          <option value="<%= term.id %>" <%= String(selectedTerm) === String(term.id) ? 'selected' : '' %>><%= term.name %> - <%= term.academic_year_name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-group" style="align-self:end;">
+      <button class="button" type="submit">Filter Results</button>
+    </div>
+  </form>
+</div>
+
+<% if (termEnd) { %>
+  <div class="alert info" style="margin-top: 1rem;">This Term Ended: <strong><%= termEnd %></strong></div>
+<% } %>
+
+<div class="card" style="margin-top:1rem;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Class Score</th>
+        <th>Exam Score</th>
+        <th>Total Score</th>
+        <th>Grade</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (results.length === 0) { %>
+        <tr>
+          <td colspan="6">No published results available for the selected filters.</td>
+        </tr>
+      <% } %>
+      <% results.forEach((row) => { %>
+        <tr>
+          <td><%= row.subject %></td>
+          <td><%= row.class_score %></td>
+          <td><%= row.exam_score %></td>
+          <td><%= row.total_score %></td>
+          <td><%= row.grade %></td>
+          <td><%= row.remark %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<% if (results.length > 0 && selectedTerm) { %>
+  <div style="margin-top:1.5rem;">
+    <a class="button" href="/student/report?term=<%= selectedTerm %>">Download Report Card (PDF)</a>
+  </div>
+<% } %>
+<%- include('../partials/footer') %>

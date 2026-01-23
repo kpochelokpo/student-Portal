@@ -1,0 +1,4 @@
+node_modules/
+/db/student-portal.sqlite
+/uploads/*
+!/uploads/.gitkeep

@@ -1,0 +1,102 @@
+<%- include('../partials/header', { title: 'Teacher Dashboard', extraStyles: null }) %>
+<section class="page-header">
+  <h2>Welcome, <%= teacher.firstname %>!</h2>
+  <p>Manage assigned subjects, download templates, and upload results.</p>
+</section>
+
+<% if (message) { %>
+  <div class="alert success"><%= message %></div>
+<% } %>
+<% if (error) { %>
+  <div class="alert error"><%= error %></div>
+<% } %>
+
+<section class="grid grid-2">
+  <div class="card">
+    <h3>Assigned Subjects & Classes</h3>
+    <% if (assignments.length === 0) { %>
+      <p>No assignments available.</p>
+    <% } %>
+    <% assignments.forEach((assignment) => { %>
+      <div class="card" style="margin-bottom: 1rem;">
+        <h4><%= assignment.subject %></h4>
+        <p><strong>Class:</strong> <%= assignment.class_name %></p>
+        <p><strong>Academic Year:</strong> <%= assignment.academic_year %></p>
+        <form method="GET" action="/teacher/template">
+          <input type="hidden" name="assignment" value="<%= assignment.id %>" />
+          <div class="form-group">
+            <label>Select Term</label>
+            <select name="term" required>
+              <% terms.filter(term => term.academic_year_id === assignment.academic_year_id).forEach((term) => { %>
+                <option value="<%= term.id %>"><%= term.name %></option>
+              <% }) %>
+            </select>
+          </div>
+          <button class="button light" type="submit">Download CSV Template</button>
+        </form>
+      </div>
+    <% }) %>
+  </div>
+  <div class="card">
+    <h3>Upload Results CSV</h3>
+    <form method="POST" action="/teacher/upload" enctype="multipart/form-data">
+      <div class="form-group">
+        <label>Assignment</label>
+        <select name="assignment_id" required>
+          <% assignments.forEach((assignment) => { %>
+            <option value="<%= assignment.id %>"><%= assignment.subject %> - <%= assignment.class_name %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Term</label>
+        <select name="term_id" required>
+          <% terms.forEach((term) => { %>
+            <option value="<%= term.id %>"><%= term.name %> - <%= term.academic_year_name %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>CSV File</label>
+        <input type="file" name="results_file" accept=".csv" required />
+      </div>
+      <button class="button" type="submit">Submit Upload</button>
+    </form>
+  </div>
+</section>
+
+<section class="card" style="margin-top:1.5rem;">
+  <h3>Upload History</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Term</th>
+        <th>Status</th>
+        <th>Errors</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (uploads.length === 0) { %>
+        <tr>
+          <td colspan="5">No uploads submitted yet.</td>
+        </tr>
+      <% } %>
+      <% uploads.forEach((upload) => { %>
+        <tr>
+          <td><%= upload.subject %></td>
+          <td><%= upload.term_name %></td>
+          <td>
+            <span class="badge <%= upload.status === 'approved' ? 'success' : upload.status === 'rejected' ? 'danger' : 'warning' %>">
+              <%= upload.status %>
+            </span>
+          </td>
+          <td><%= upload.error_message || '-' %></td>
+          <td><%= upload.created_at %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>
+<%- include('../partials/footer') %>

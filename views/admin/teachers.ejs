@@ -1,0 +1,64 @@
+<%- include('../partials/header', { title: 'Manage Teachers', extraStyles: null }) %>
+<section class="page-header">
+  <h2>Manage Teachers</h2>
+</section>
+
+<% if (message) { %>
+  <div class="alert success"><%= message %></div>
+<% } %>
+
+<section class="card">
+  <form method="POST" action="/admin/teachers" class="grid grid-2">
+    <div class="form-group">
+      <label>Staff ID</label>
+      <input name="staff_id" required />
+    </div>
+    <div class="form-group">
+      <label>Username</label>
+      <input name="username" required />
+    </div>
+    <div class="form-group">
+      <label>Surname</label>
+      <input name="surname" required />
+    </div>
+    <div class="form-group">
+      <label>First Name</label>
+      <input name="firstname" required />
+    </div>
+    <div class="form-group">
+      <label>Other Names</label>
+      <input name="othernames" />
+    </div>
+    <div class="form-group" style="align-self:end;">
+      <button class="button" type="submit">Add Teacher</button>
+    </div>
+  </form>
+</section>
+
+<section class="card" style="margin-top:1rem;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Staff ID</th>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% teachers.forEach((teacher) => { %>
+        <tr>
+          <td><%= teacher.staff_id %></td>
+          <td><%= teacher.surname %> <%= teacher.firstname %> <%= teacher.othernames %></td>
+          <td><%= teacher.username %></td>
+          <td>
+            <form method="POST" action="/admin/teachers/<%= teacher.id %>/delete">
+              <button class="button danger" type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>
+<%- include('../partials/footer') %>

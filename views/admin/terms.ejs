@@ -1,0 +1,47 @@
+<%- include('../partials/header', { title: 'Manage Terms', extraStyles: null }) %>
+<section class="page-header">
+  <h2>Manage Terms</h2>
+  <p>Control publishing status for each academic term.</p>
+</section>
+
+<section class="card">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Academic Year</th>
+        <th>Term</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% terms.forEach((term) => { %>
+        <tr>
+          <td><%= term.academic_year %></td>
+          <td><%= term.name %></td>
+          <td><%= term.start_date %></td>
+          <td><%= term.end_date %></td>
+          <td>
+            <span class="badge <%= term.is_published ? 'success' : 'warning' %>">
+              <%= term.is_published ? 'Published' : 'Unpublished' %>
+            </span>
+          </td>
+          <td>
+            <% if (term.is_published) { %>
+              <form method="POST" action="/admin/terms/<%= term.id %>/unpublish">
+                <button class="button warning" type="submit">Unpublish</button>
+              </form>
+            <% } else { %>
+              <form method="POST" action="/admin/terms/<%= term.id %>/publish">
+                <button class="button" type="submit">Publish</button>
+              </form>
+            <% } %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>
+<%- include('../partials/footer') %>

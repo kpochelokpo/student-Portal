@@ -1,0 +1,43 @@
+<%- include('../partials/header', { title: 'Bulk Upload Results', extraStyles: null }) %>
+<section class="page-header">
+  <h2>Bulk Upload Results</h2>
+  <p>Upload results as an admin to approve immediately.</p>
+</section>
+
+<% if (message) { %>
+  <div class="alert success"><%= message %></div>
+<% } %>
+<% if (error) { %>
+  <div class="alert error"><%= error %></div>
+<% } %>
+
+<section class="card">
+  <form method="POST" action="/admin/bulk-upload" enctype="multipart/form-data">
+    <div class="form-group">
+      <label>Subject</label>
+      <select name="subject_id" required>
+        <% subjects.forEach((subject) => { %>
+          <option value="<%= subject.id %>"><%= subject.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Term</label>
+      <select name="term_id" required>
+        <% terms.forEach((term) => { %>
+          <option value="<%= term.id %>"><%= term.name %> - <%= term.academic_year_name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Class</label>
+      <input name="class_name" required />
+    </div>
+    <div class="form-group">
+      <label>CSV File (index_no, class_score, exam_score)</label>
+      <input type="file" name="results_file" accept=".csv" required />
+    </div>
+    <button class="button" type="submit">Upload & Approve</button>
+  </form>
+</section>
+<%- include('../partials/footer') %>

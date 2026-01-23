@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %> | HALF ASSINI SENIOR HIGH SCHOOL</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <% if (extraStyles) { %>
+    <link rel="stylesheet" href="<%= extraStyles %>" />
+  <% } %>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container navbar-content">
+      <div class="brand">
+        <img src="/images/crest.svg" alt="HALF ASSINI SENIOR HIGH SCHOOL crest" />
+        <div>
+          <h1>HALF ASSINI SENIOR HIGH SCHOOL</h1>
+          <small>Student Results Portal</small>
+        </div>
+      </div>
+      <% if (currentUser) { %>
+      <nav class="nav-links">
+        <% if (currentUser.role === 'student') { %>
+          <a href="/student/dashboard">Dashboard</a>
+          <a href="/student/results">Results</a>
+        <% } %>
+        <% if (currentUser.role === 'teacher') { %>
+          <a href="/teacher/dashboard">Dashboard</a>
+        <% } %>
+        <% if (currentUser.role === 'admin') { %>
+          <a href="/admin/dashboard">Dashboard</a>
+          <a href="/admin/terms">Terms</a>
+          <a href="/admin/uploads">Uploads</a>
+          <a href="/admin/bulk-upload">Bulk Upload</a>
+          <a href="/admin/students">Students</a>
+          <a href="/admin/teachers">Teachers</a>
+          <a href="/admin/assignments">Assignments</a>
+          <a href="/admin/subjects">Subjects</a>
+          <a href="/admin/academic-years">Academic Years</a>
+          <a href="/admin/audit-logs">Audit Logs</a>
+        <% } %>
+        <a href="/logout">Logout</a>
+      </nav>
+      <% } %>
+    </div>
+  </header>
+  <main class="container">

@@ -1,0 +1,65 @@
+<%- include('../partials/header', { title: 'Student Dashboard', extraStyles: null }) %>
+<section class="page-header">
+  <h2>Welcome back, <%= student.firstname %>!</h2>
+  <p>View your academic overview and latest results.</p>
+</section>
+
+<section class="grid grid-2">
+  <div class="card">
+    <div class="profile">
+      <img src="<%= student.photo_url %>" alt="Student photo" />
+      <div>
+        <h3><%= student.surname %> <%= student.firstname %> <%= student.othernames %></h3>
+        <p>Index Number: <strong><%= student.index_no %></strong></p>
+        <p>Date of Birth: <%= student.dob %></p>
+      </div>
+    </div>
+    <div class="grid grid-2" style="margin-top: 1.5rem;">
+      <div>
+        <p><strong>Programme/Class</strong><br /><%= student.programme %> - <%= student.class_name %></p>
+      </div>
+      <div>
+        <p><strong>Status</strong><br /><span class="badge success"><%= student.status %></span></p>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Academic Overview</h3>
+    <div class="stats">
+      <div class="stat">
+        <p>Overall Average</p>
+        <h2><%= overallAverage %>%</h2>
+      </div>
+      <div class="stat">
+        <p>Level</p>
+        <h2><%= student.class_name %></h2>
+      </div>
+      <div class="stat">
+        <p>Quick Actions</p>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <a class="button light" href="/student/results">View Results</a>
+          <a class="button light" href="/student/results">Report Card</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="grid grid-3" style="margin-top: 1.5rem;">
+  <div class="card">
+    <h3>Download Report Card</h3>
+    <p>Get the official academic report card in printable format.</p>
+    <a class="button secondary" href="/student/results">Choose Term</a>
+  </div>
+  <div class="card">
+    <h3>Student Handbook</h3>
+    <p>Download the school handbook and student guidelines.</p>
+    <a class="button secondary" href="/student/download/handbook">Download</a>
+  </div>
+  <div class="card">
+    <h3>Clearance Form</h3>
+    <p>Download the clearance form for school administration.</p>
+    <a class="button secondary" href="/student/download/clearance">Download</a>
+  </div>
+</section>
+<%- include('../partials/footer') %>
