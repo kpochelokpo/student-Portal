@@ -1,0 +1,101 @@
+@page {
+  size: A4;
+  margin: 20mm;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #1b2430;
+}
+
+.report-card {
+  position: relative;
+  background: #ffffff;
+}
+
+.report-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 2px solid #0b3d91;
+  padding-bottom: 0.75rem;
+}
+
+.report-header img {
+  width: 70px;
+  height: 70px;
+}
+
+.report-title {
+  text-align: center;
+  flex: 1;
+}
+
+.report-title h1 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #0b3d91;
+  text-transform: uppercase;
+}
+
+.report-title h2 {
+  margin: 0.25rem 0 0;
+  font-size: 1rem;
+  color: #1b2430;
+}
+
+.student-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1.5rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.section-title {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1rem;
+  color: #0b3d91;
+  border-bottom: 1px solid #e0e6ef;
+  padding-bottom: 0.3rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.table th,
+.table td {
+  border: 1px solid #d9e2ef;
+  padding: 0.4rem;
+}
+
+.table th {
+  background: #f2f6fc;
+  color: #0b3d91;
+}
+
+.admin-block {
+  margin-top: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+}
+
+.watermark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0.08;
+}
+
+.watermark img {
+  width: 360px;
+  height: 360px;
+}

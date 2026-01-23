@@ -1,0 +1,55 @@
+<%- include('../partials/header', { title: 'Admin Dashboard', extraStyles: null }) %>
+<section class="page-header">
+  <h2>Admin Control Center</h2>
+  <p>Manage users, assignments, and publishing across the portal.</p>
+</section>
+
+<% if (message) { %>
+  <div class="alert success"><%= message %></div>
+<% } %>
+
+<section class="grid grid-3">
+  <div class="card">
+    <h3>Total Students</h3>
+    <h2><%= counts.students.count %></h2>
+    <a class="button light" href="/admin/students">Manage Students</a>
+  </div>
+  <div class="card">
+    <h3>Total Teachers</h3>
+    <h2><%= counts.teachers.count %></h2>
+    <a class="button light" href="/admin/uploads">Review Uploads</a>
+  </div>
+  <div class="card">
+    <h3>Subjects</h3>
+    <h2><%= counts.subjects.count %></h2>
+    <a class="button light" href="/admin/subjects">Manage Subjects</a>
+  </div>
+</section>
+
+<section class="card" style="margin-top: 1.5rem;">
+  <h3>Pending Teacher Uploads</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Term</th>
+        <th>Class</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (pendingUploads.length === 0) { %>
+        <tr><td colspan="4">No pending uploads.</td></tr>
+      <% } %>
+      <% pendingUploads.forEach((upload) => { %>
+        <tr>
+          <td><%= upload.subject %></td>
+          <td><%= upload.term_name %></td>
+          <td><%= upload.class_name %></td>
+          <td><span class="badge warning">pending</span></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>
+<%- include('../partials/footer') %>

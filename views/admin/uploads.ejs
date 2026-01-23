@@ -1,0 +1,53 @@
+<%- include('../partials/header', { title: 'Review Uploads', extraStyles: null }) %>
+<section class="page-header">
+  <h2>Teacher Uploads</h2>
+  <p>Approve or reject submitted result uploads.</p>
+</section>
+
+<section class="card">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Term</th>
+        <th>Class</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (uploads.length === 0) { %>
+        <tr><td colspan="5">No uploads available.</td></tr>
+      <% } %>
+      <% uploads.forEach((upload) => { %>
+        <tr>
+          <td><%= upload.subject %></td>
+          <td><%= upload.term_name %></td>
+          <td><%= upload.class_name %></td>
+          <td>
+            <span class="badge <%= upload.status === 'approved' ? 'success' : upload.status === 'rejected' ? 'danger' : 'warning' %>">
+              <%= upload.status %>
+            </span>
+            <% if (upload.error_message) { %>
+              <div><small><%= upload.error_message %></small></div>
+            <% } %>
+          </td>
+          <td>
+            <% if (upload.status === 'pending') { %>
+              <form method="POST" action="/admin/uploads/<%= upload.id %>/approve" style="margin-bottom:0.5rem;">
+                <button class="button" type="submit">Approve</button>
+              </form>
+              <form method="POST" action="/admin/uploads/<%= upload.id %>/reject">
+                <input type="text" name="reason" placeholder="Reason" />
+                <button class="button danger" type="submit">Reject</button>
+              </form>
+            <% } else { %>
+              <span>-</span>
+            <% } %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>
+<%- include('../partials/footer') %>

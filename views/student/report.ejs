@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report Card | HALF ASSINI SENIOR HIGH SCHOOL</title>
+  <link rel="stylesheet" href="/css/report.css" />
+</head>
+<body>
+  <div class="report-card">
+    <div class="watermark">
+      <img src="/images/crest.svg" alt="School crest watermark" />
+    </div>
+    <div class="report-header">
+      <img src="/images/crest.svg" alt="School crest" />
+      <div class="report-title">
+        <h1>HALF ASSINI SENIOR HIGH SCHOOL</h1>
+        <h2>ACADEMIC RESULTS / REPORT CARD</h2>
+      </div>
+    </div>
+
+    <div class="student-info">
+      <div><strong>Name:</strong> <%= student.surname %> <%= student.firstname %> <%= student.othernames %></div>
+      <div><strong>Index Number:</strong> <%= student.index_no %></div>
+      <div><strong>Class:</strong> <%= student.class_name %></div>
+      <div><strong>Academic Year:</strong> <%= term.academic_year_name %></div>
+      <div><strong>Term:</strong> <%= term.name %></div>
+    </div>
+
+    <h3 class="section-title">Results Summary</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Class Score</th>
+          <th>Exam Score</th>
+          <th>Total Score</th>
+          <th>Grade</th>
+          <th>Remarks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% results.forEach((row) => { %>
+          <tr>
+            <td><%= row.subject %></td>
+            <td><%= row.class_score %></td>
+            <td><%= row.exam_score %></td>
+            <td><%= row.total_score %></td>
+            <td><%= row.grade %></td>
+            <td><%= row.remark %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <h3 class="section-title">Administration</h3>
+    <div class="admin-block">
+      <div><strong>Programme:</strong> <%= student.programme %></div>
+      <div><strong>Date Admitted:</strong> <%= student.date_admitted %></div>
+      <div><strong>Expected Graduation:</strong> <%= student.expected_graduation %></div>
+      <div><strong>Scholarship:</strong> <%= student.scholarship %></div>
+      <div><strong>Comments:</strong> <%= student.comments %></div>
+    </div>
+  </div>
+</body>
+</html>
